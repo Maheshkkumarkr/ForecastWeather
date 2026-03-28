@@ -112,6 +112,71 @@ openWeatherApiKey=YOUR_KEY_HERE
 openWeatherBaseUrl=https://api.openweathermap.org/
 ```
 
+## Demo & Screenshots
+
+### App Screenshots
+
+| Online with GPS | Offline No GPS | Offline with Cache |
+|---|---|---|
+| ![Online GPS](./app/src/main/res/drawable/online_with_gps_weather_data.png) | ![Offline No GPS](./app/src/main/res/drawable/offline_no_gps.png) | ![Offline Cache](./app/src/main/res/drawable/offline_no_gps_weather_data.png) |
+
+| Configure Days | No Forecast Data |
+|---|---|
+| ![Days Config](./app/src/main/res/drawable/offline_no_gps_weather_data_days_configure.png) | ![No Data](./app/src/main/res/drawable/no_forecast_data.png) |
+
+**Key UI Features:**
+- `GPS On`/`GPS Off` badge with settings link (tap to open app permissions)
+- `Online`/`Offline` connectivity badge with smart caching
+- Configurable forecast days (1-5 days)
+- Real-time weather data with hourly slots
+- Last updated timestamp + cache indicator
+- Graceful error handling when no data available
+
+### Video Demo
+
+Watch the app in action:
+
+[![WeatherApp Demo](https://img.youtube.com/vi/video_thumbnail/0.jpg)](https://drive.google.com/file/d/1rsD01JblelD1JJqhJyRNSqCKX2zXlahr/view?usp=drive_link)
+
+**Direct Link:** [Full App Demo Video](https://drive.google.com/file/d/1rsD01JblelD1JJqhJyRNSqCKX2zXlahr/view?usp=drive_link)
+
+## Downloads
+
+### Latest APK Release
+
+| Platform | Link | Version |
+|---|---|---|
+| **Direct APK Download** | [weatherapp-release.apk](https://drive.google.com/file/d/1bGaw-zuAYnHMCxK4Kz14DQY8g3EIyWra/view?usp=drive_link) | v1.0 |
+| **GitHub Repository** | [View Source](https://github.com/Maheshkkumarkr/ForecastWeather) | Latest |
+
+**Installation Instructions:**
+
+Option 1: Direct from Drive
+```
+1. Click the APK link above
+2. Download the file
+3. Transfer to your Android device
+4. Open file manager → tap APK → Install
+```
+
+Option 2: Via ADB (Android Debug Bridge)
+```bash
+# Connect device via USB with debugging enabled
+adb install weatherapp-release.apk
+```
+
+Option 3: Android Studio
+```
+1. Open Android Studio
+2. Run → Select Deployment Target (your device)
+3. Click Run or .\gradlew.bat :app:installDebug
+```
+
+**Minimum Requirements:**
+- Android 7.0 (API 24)
+- Location Permission (optional, for GPS-based weather)
+- Internet Connection (recommended for live data)
+
 ## Build and Run
 
 ```powershell
