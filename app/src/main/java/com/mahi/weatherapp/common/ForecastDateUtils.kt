@@ -7,11 +7,10 @@ import java.time.ZoneOffset
 import java.time.format.DateTimeFormatter
 
 /**
- * Number of days in the forecast window (today + 2 = 3-day forecast).
- * The OpenWeatherMap free-tier API provides up to 5 days of data (hard ceiling).
- * Adjust this value (max 4 = 5-day window) to show more days.
+ * Maximum number of days in the forecast window (today + 4 = 5-day forecast).
+ * The OpenWeatherMap free-tier API provides up to 5 days of data.
  */
-const val FORECAST_WINDOW_DAYS = 2L
+const val FORECAST_WINDOW_DAYS = 4L
 
 private val FORECAST_DATE_TIME_FORMATTER: DateTimeFormatter =
     DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
@@ -38,9 +37,9 @@ fun String.toForecastLocalDate(
 
 fun String.isWithinForecastWindow(
     today: LocalDate = LocalDate.now(),
+    windowDays: Long = FORECAST_WINDOW_DAYS,
     zoneId: ZoneId = ZoneId.systemDefault()
 ): Boolean {
     val date = toForecastLocalDate(zoneId) ?: return false
-    return date in today..today.plusDays(FORECAST_WINDOW_DAYS)
+    return date in today..today.plusDays(windowDays)
 }
-

@@ -98,6 +98,8 @@ dependencies {
     implementation(libs.bundles.splashscreen)
     // Lottie animations
     implementation(libs.bundles.lottie)
+    // Location services
+    implementation(libs.play.services.location)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

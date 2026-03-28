@@ -6,6 +6,7 @@ import com.mahi.weatherapp.common.toForecastLocalDate
 import com.mahi.weatherapp.common.toForecastLocalDateTime
 import com.mahi.weatherapp.common.Resource
 import com.mahi.weatherapp.domain.error.AppError
+import com.mahi.weatherapp.domain.error.RemoteError
 import com.mahi.weatherapp.domain.error.Result
 import com.mahi.weatherapp.domain.model.City
 import com.mahi.weatherapp.domain.model.ForecastEntry
@@ -28,8 +29,12 @@ import java.time.ZoneId
 class GetForecastUseCase(
     private val repository: ForecastRepository
 ) {
-    operator fun invoke(cityQuery: String, forceRefresh: Boolean = false): Flow<Resource<List<ForecastEntry>>> = flow {
-        Log.d(TAG, "invoke(cityQuery=$cityQuery, forceRefresh=$forceRefresh)")
+    operator fun invoke(
+        cityQuery: String,
+        forceRefresh: Boolean = false,
+        isOnline: Boolean = true
+    ): Flow<Resource<List<ForecastEntry>>> = flow {
+        Log.d(TAG, "invoke(cityQuery=$cityQuery, forceRefresh=$forceRefresh, isOnline=$isOnline)")
         emit(Resource.Loading())
 
         val cachedForecast = repository.getCachedForecast(cityQuery).successOrNull().orEmpty().withinForecastWindow()
@@ -49,6 +54,12 @@ class GetForecastUseCase(
                     lastUpdatedMillis = lastFetched
                 )
             )
+            return@flow
+        }
+
+        if (!isOnline) {
+            Log.d(TAG, "offline and cache unavailable -> skipping geocode/api for query=$cityQuery")
+            emit(Resource.Error(message = RemoteError.NoInternet.message))
             return@flow
         }
 

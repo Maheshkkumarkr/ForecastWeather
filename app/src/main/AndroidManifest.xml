@@ -6,6 +6,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- Optional: Check if WiFi/Data is active before making a request -->
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!-- Location detection for auto city lookup -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name=".WeatherAppApplication"

@@ -4,13 +4,18 @@ import com.mahi.weatherapp.domain.model.WeatherCondition
 import java.time.LocalDate
 
 data class ForecastState(
-    val cityQuery: String = "Bengaluru",
+    val cityQuery: String = "",
     val isLoading: Boolean = false,
+    val isDetectingLocation: Boolean = false,
     val error: String? = null,
+    val locationError: String? = null,
+    val hasRequestedLocation: Boolean = false,
     val items: List<DailyForecast> = emptyList(),
     val isFromCache: Boolean = false,
     val lastUpdated: String? = null,
-    val isOnline: Boolean = true
+    val isOnline: Boolean = true,
+    val forecastDays: Int = 3,
+    val isLocationPermissionGranted: Boolean = false
 )
 
 data class DailyForecast(

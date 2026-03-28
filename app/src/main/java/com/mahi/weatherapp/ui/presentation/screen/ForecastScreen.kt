@@ -1,9 +1,15 @@
 package com.mahi.weatherapp.ui.presentation.screen
 
 import android.content.res.Configuration
-import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.unit.dp
@@ -19,31 +25,31 @@ fun ForecastScreen(
     onCityChange: (String) -> Unit,
     onSearch: () -> Unit,
     onRetry: () -> Unit,
-    onRefresh: () -> Unit
+    onRefresh: () -> Unit,
+    onForecastDaysChange: (Int) -> Unit,
+    onLocationBadgeClick: () -> Unit
 ) {
-    // 1. Detect Orientation
     val configuration = LocalConfiguration.current
     val isLandscape = configuration.orientation == Configuration.ORIENTATION_LANDSCAPE
 
     Surface(modifier = modifier.fillMaxSize()) {
         if (isLandscape) {
-            // --- LANDSCAPE MODE: Side-by-Side ---
             Row(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(16.dp),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Left Pane: Search (Takes up roughly 1/3 of the screen)
                 ForecastHeader(
                     state = state,
                     onCityChange = onCityChange,
                     onSearch = onSearch,
                     onRefresh = onRefresh,
-                    modifier = Modifier.weight(0.35f) // or .width(300.dp) for fixed tablet width
+                    onForecastDaysChange = onForecastDaysChange,
+                    onLocationBadgeClick = onLocationBadgeClick,
+                    modifier = Modifier.weight(0.35f)
                 )
 
-                // Right Pane: The Forecast List (Takes up the remaining 2/3)
                 ForecastContent(
                     state = state,
                     onRetry = onRetry,
@@ -51,13 +57,14 @@ fun ForecastScreen(
                 )
             }
         } else {
-            // --- PORTRAIT MODE: Stacked Vertically ---
             Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
                 ForecastHeader(
                     state = state,
                     onCityChange = onCityChange,
                     onSearch = onSearch,
-                    onRefresh = onRefresh
+                    onRefresh = onRefresh,
+                    onForecastDaysChange = onForecastDaysChange,
+                    onLocationBadgeClick = onLocationBadgeClick
                 )
 
                 Spacer(modifier = Modifier.height(16.dp))
@@ -65,7 +72,7 @@ fun ForecastScreen(
                 ForecastContent(
                     state = state,
                     onRetry = onRetry,
-                    modifier = Modifier.weight(1f) // Takes remaining height safely
+                    modifier = Modifier.weight(1f)
                 )
             }
         }
