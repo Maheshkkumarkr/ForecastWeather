@@ -1,0 +1,13 @@
+package com.mahi.weatherapp.data.local.entity
+
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "cities")
+data class CityEntity(
+    @PrimaryKey val name: String,
+    val country: String?,
+    val latitude: Double,
+    val longitude: Double,
+    val lastFetchedAt: Long
+)
